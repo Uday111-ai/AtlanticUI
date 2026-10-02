@@ -1,7 +1,8 @@
 import { BentoGridDemo } from "@/components/demos/bento-grid-demo";
+import { StackedGalleryDemo } from "@/components/demos/stacked-gallery-demo";
 import { Spotlight } from "@/components/ui/spotlight";
 import { ComponentPreview } from "@/components/website/component-preview";
-import { bentoGridCode, spotlightCode } from "@/lib/code-snippets";
+import { bentoGridCode, spotlightCode, stackedGalleryCode } from "@/lib/code-snippets";
 
 export default function Home() {
   return (
@@ -9,10 +10,7 @@ export default function Home() {
       {/* Header */}
       <div className="text-center space-y-3 pt-8">
         <h1 className="text-5xl font-extrabold tracking-tight">AtlanticUI</h1>
-        <p className="text-neutral-400 text-lg">
-          {/* Modern animated UI components for Next.js and Tailwind CSS. */}
-          Build Smarter, Ship Faster!
-        </p>
+        <p className="text-neutral-400 text-lg">Build Smarter, Ship Faster</p>
       </div>
 
       {/* Component 1: Spotlight */}
@@ -43,6 +41,19 @@ export default function Home() {
         </div>
         <ComponentPreview code={bentoGridCode}>
           <BentoGridDemo />
+        </ComponentPreview>
+      </section>
+
+      {/* Component 3: Stacked Card Gallery */}
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-2xl font-bold">3. Stacked Card Gallery</h2>
+          <p className="text-neutral-400 text-sm mt-1">
+            An interactive stacked image card carousel with lower gallery grid navigation.
+          </p>
+        </div>
+        <ComponentPreview code={stackedGalleryCode}>
+          <StackedGalleryDemo />
         </ComponentPreview>
       </section>
     </main>
