@@ -3,6 +3,9 @@ import { StackedGalleryDemo } from "@/components/demos/stacked-gallery-demo";
 import { Spotlight } from "@/components/ui/spotlight";
 import { ComponentPreview } from "@/components/website/component-preview";
 import { bentoGridCode, spotlightCode, stackedGalleryCode } from "@/lib/code-snippets";
+import { ExpandableNavbarDemo } from "@/components/demos/expandable-navbar-demo";
+import { expandableNavbarCode } from "@/lib/code-snippets";
+
 
 export default function Home() {
   return (
@@ -56,6 +59,20 @@ export default function Home() {
           <StackedGalleryDemo />
         </ComponentPreview>
       </section>
+
+      {/* Component 4: Expandable Navbar */}
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-2xl font-bold">4. Morphing Expandable Navbar</h2>
+          <p className="text-neutral-400 text-sm mt-1">
+            A floating pill navigation bar that expands into a full feature panel on toggle.
+          </p>
+        </div>
+        <ComponentPreview code={expandableNavbarCode}>
+          <ExpandableNavbarDemo />
+        </ComponentPreview>
+      </section>
+
     </main>
   );
 }

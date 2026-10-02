@@ -188,3 +188,103 @@ export const StackedCardGallery = ({
     </div>
   );
 };`;
+
+
+export const expandableNavbarCode = `"use client";
+
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+export interface NavMenuItem {
+  title: string;
+  subtitle?: string;
+  href: string;
+  icon?: string;
+}
+
+export interface NavSocialLink {
+  label: string;
+  href: string;
+}
+
+export const ExpandableNavbar = ({
+  brandLogo = <span className="text-xl font-bold italic">AtlanticUI</span>,
+  menuItems,
+  socialLinks = [],
+  className,
+}: {
+  brandLogo?: React.ReactNode;
+  menuItems: NavMenuItem[];
+  socialLinks?: NavSocialLink[];
+  className?: string;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  return (
+    <motion.nav
+      layout
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className={cn(
+        "relative overflow-hidden rounded-2xl bg-neutral-200/90 dark:bg-neutral-900/90 p-3 backdrop-blur-md border border-black/5 dark:border-white/10 text-neutral-900 dark:text-neutral-100 shadow-xl",
+        isOpen ? "w-full max-w-md" : "w-auto max-w-fit",
+        className
+      )}
+    >
+      <motion.div layout="position" className="flex items-center justify-between gap-6 px-2">
+        <div>{brandLogo}</div>
+        {!isOpen && (
+          <div className="hidden sm:flex items-center space-x-4 text-xs font-medium">
+            {menuItems.map((item, idx) => (
+              <a key={idx} href={item.href}>{item.title}</a>
+            ))}
+          </div>
+        )}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex items-center space-x-1 rounded-lg bg-neutral-300 dark:bg-neutral-800 px-3 py-1.5 text-xs font-semibold"
+        >
+          <span>{isOpen ? "Close" : ""}</span>
+          <span>:</span>
+        </button>
+      </motion.div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mt-4 space-y-2 pt-2 border-t border-black/5 dark:border-white/10"
+          >
+            {menuItems.map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className="flex items-center justify-between rounded-xl p-2.5 hover:bg-black/5 dark:hover:bg-white/5"
+              >
+                <div className="flex items-center space-x-3">
+                  {item.icon && <img src={item.icon} alt={item.title} className="h-10 w-10 rounded-xl object-cover" />}
+                  <span className="font-medium text-sm">{item.title}</span>
+                </div>
+                {hoveredIndex === index && (
+                  <span className="text-xs text-neutral-500 font-mono">{item.subtitle || "Explore"}</span>
+                )}
+              </a>
+            ))}
+            {socialLinks.length > 0 && (
+              <div className="pt-3 px-2 flex flex-col space-y-1 border-t border-black/5 dark:border-white/10">
+                {socialLinks.map((s, idx) => (
+                  <a key={idx} href={s.href} className="text-xs font-mono text-neutral-500">{s.label}</a>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  );
+};`;
